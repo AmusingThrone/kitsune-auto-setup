@@ -6,7 +6,7 @@ $zipFile     = "Kitsune.zip"; // zip file
 $zipResource = fopen($zipFile, "w");
 $ch          = curl_init();
 
-echo 'Downloading Server...';
+echo "Downloading Server...\n";
 
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_FAILONERROR, true);
