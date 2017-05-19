@@ -104,14 +104,14 @@ if (!$con) {
     $xml                     = new DOMDocument('1.0', 'utf-8');
     $xml->formatOutput       = true;
     $xml->preserveWhiteSpace = false;
-    $xml->load('kitsune\Database.xml');
+    $xml->load('kitsune/Database.xml');
     
     $xml->getElementsByTagName('name')->item(0)->nodeValue     = $dbName;
     $xml->getElementsByTagName('address')->item(0)->nodeValue  = $dbhost;
     $xml->getElementsByTagName('username')->item(0)->nodeValue = $dbUser;
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
-    $xml->save("kitsune\Database.xml");
+    $xml->save("kitsune/Database.xml");
     echo 'Successfully updated your Database.xml file!';
 }
 
@@ -120,14 +120,14 @@ if (in_array($conan, $answers)) {
     $xml                     = new DOMDocument('1.0', 'utf-8');
     $xml->formatOutput       = true;
     $xml->preserveWhiteSpace = false;
-    $xml->load('kitsune\Database.xml');
+    $xml->load('kitsune/Database.xml');
     
     $xml->getElementsByTagName('name')->item(0)->nodeValue     = $dbName;
     $xml->getElementsByTagName('address')->item(0)->nodeValue  = $dbhost;
     $xml->getElementsByTagName('username')->item(0)->nodeValue = $dbUser;
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
-    $xml->save("kitsune\Database.xml");
+    $xml->save("kitsune/Database.xml");
     echo 'Successfully updated your Database.xml file!';
 }
 
