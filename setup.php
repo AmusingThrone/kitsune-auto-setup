@@ -1,5 +1,5 @@
 <?php
-echo 'Welcome to the Kitsune Auto-Setup';
+echo "Welcome to the Kitsune Auto-Setup\n";
 
 $url         = "https://github.com/AmusingThrone/kitsune-auto-setup/raw/master/Kitsune.zip";
 $zipFile     = "Kitsune.zip"; // zip file
@@ -20,14 +20,14 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($ch, CURLOPT_FILE, $zipResource);
 $page = curl_exec($ch);
 if (!$page) {
-    echo "Error :- " . curl_error($ch);
+    echo "Error :- " . curl_error($ch) . "\n";
 }
 curl_close($ch);
 
 $zip         = new ZipArchive;
 $extractPath = "kitsune";
 if ($zip->open($zipFile) != "true") {
-    echo "Error :- Unable to extract Server";
+    echo "Error :- Unable to extract Server\n";
 }
 
 $zip->extractTo($extractPath);
@@ -85,11 +85,11 @@ echo "Enter Database Password: ";
 $dbPass = trim(fgets(STDIN));
 
 if ($dbPass == "") {
-    echo "Without db pass? Omg, please setup a password for your db.";
+    echo "Without db pass? Omg, please setup a password for your db.\n";
 }
 
 if (strlen($dbPass) < 5) {
-    echo "Um, please use a strong password.";
+    echo "Um, please use a strong password.\n";
 }
 
 echo "Enter Database Name: ";
@@ -98,7 +98,7 @@ $con    = mysqli_connect($dbhost, $dbUser, $dbPass);
 
 if (!$con) {
     echo "Oops! We couldn't connect to the database..\n";
-    echo "Continue anyway? ";
+    echo "Continue anyway?\n";
     $conan = trim(fgets(STDIN));
 } else {
     $xml                     = new DOMDocument('1.0', 'utf-8');
@@ -111,8 +111,8 @@ if (!$con) {
     $xml->getElementsByTagName('username')->item(0)->nodeValue = $dbUser;
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
-    $xml->save("kitsune/Database.xml");
-    echo 'Successfully updated your Database.xml file!';
+    $xml->save('kitsune/Database.xml');
+    echo "Successfully updated your Database.xml file!\n";
 }
 
 if (in_array($conan, $answers)) {
@@ -128,7 +128,7 @@ if (in_array($conan, $answers)) {
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
     $xml->save("kitsune/Database.xml");
-    echo 'Successfully updated your Database.xml file!';
+    echo "Successfully updated your Database.xml file!\n";
 }
 
 if (in_array($conan, $no)) {
@@ -137,13 +137,14 @@ if (in_array($conan, $no)) {
 }
 
 echo "Almost done!\n";
-echo "Would you like us to setup the database?";
-echo "It's recommended you do, otherwise you will have to do this manually later";
+echo "Would you like us to setup the database?\n";
+echo "It's recommended you do, otherwise you will have to do this manually later\n";
 
 $answer = trim(fgets(STDIN));
 if (in_array($answer, $no)) {
     $conan = trim(fgets(STDIN));
-    die("Shutting down configuration...");
+    echo "Shutting down configuration...\n";
+    die("Goodbye!");
 }
 
 mysqli_query($con, 'CREATE DATABASE IF NOT EXISTS ' . $dbName . '');
@@ -234,7 +235,7 @@ mysqli_query($con, "INSERT INTO `puffles` (`ID`, `Owner`, `Name`, `AdoptionDate`
 
 mysqli_close($con);
 
-echo "The database is now setup!";
-echo "Kitsune Setup!";
+echo "The database is now setup!\n";
+echo "Kitsune Setup finished! Enjoy!";
 
 ?>
