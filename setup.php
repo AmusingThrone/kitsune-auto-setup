@@ -236,6 +236,6 @@ mysqli_query($con, "INSERT INTO `puffles` (`ID`, `Owner`, `Name`, `AdoptionDate`
 mysqli_close($con);
 
 echo "The database is now setup!\n";
-echo "Kitsune Setup finished! Enjoy!";
+echo "Kitsune Setup finished! Enjoy!\n";
 
 ?>
