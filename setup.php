@@ -49,7 +49,7 @@ if ($zip->open($zipFile) != "true") {
 $zip->extractTo($extractPath);
 $zip->close();
 
-sendMessage("Finished extracting\n")
+sendMessage("Finished extracting\n");
 
 //config starts.
 
@@ -57,6 +57,7 @@ $answers = array (
     'yes',
     'y'
 );
+
 $no      = array (
     'no',
     'n'
