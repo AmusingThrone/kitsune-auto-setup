@@ -53,11 +53,11 @@ sendMessage("Finished extracting\n")
 
 //config starts.
 
-$answers = array(
+$answers = array (
     'yes',
     'y'
 );
-$no      = array(
+$no      = array (
     'no',
     'n'
 );
