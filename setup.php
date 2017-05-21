@@ -1,12 +1,24 @@
 <?php
-echo "Welcome to the Kitsune Auto-Setup\n";
+
+function sendMessage($message) {
+
+  $message = $message . "\n";
+  echo $message;
+
+}
+
+$version = "v0.2";
+
+sendMessage("Welcome to the Kitsune Auto-Setup");
 
 $url         = "https://github.com/AmusingThrone/kitsune-auto-setup/raw/master/Kitsune.zip";
 $zipFile     = "Kitsune.zip"; // zip file
 $zipResource = fopen($zipFile, "w");
 $ch          = curl_init();
+$zip         = new ZipArchive;
+$extractPath = "kitsune";
 
-echo "Downloading Server...\n";
+sendMessage("Downloading " . $zipFile . "from Server...");
 
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_FAILONERROR, true);
@@ -17,15 +29,19 @@ curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
 curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+sendMessage("Done Downloading " . $zipFile);
+
 curl_setopt($ch, CURLOPT_FILE, $zipResource);
 $page = curl_exec($ch);
+
+sendMessage("Preparing to Extract " . $zipFile);
+
 if (!$page) {
     echo "Error :- " . curl_error($ch) . "\n";
 }
 curl_close($ch);
 
-$zip         = new ZipArchive;
-$extractPath = "kitsune";
 if ($zip->open($zipFile) != "true") {
     echo "Error :- Unable to extract Server\n";
 }
@@ -33,73 +49,52 @@ if ($zip->open($zipFile) != "true") {
 $zip->extractTo($extractPath);
 $zip->close();
 
+sendMessage("Finished extracting\n")
+
 //config starts.
 
 $answers = array(
     'yes',
     'y',
-    'yeah',
-    'sure',
-    'ya',
-    'YES',
-    'Yes',
-    'Yeah',
-    'Sure',
-    'Ya',
-    'YEAH',
-    'SURE',
-    'ok',
-    'okay',
-    'Ok',
-    'Okay',
-    'OK',
-    'OKAY',
-    '1',
-    'Y',
-    'yes!',
-    'k',
-    'kk',
-    'K',
-    'KK'
 );
 $no      = array(
     'no',
-    'nah',
-    'nope',
-    'No',
-    'NO',
-    '0',
-    'n',
-    'noo',
-    'Nope',
-    'no u',
-    'NO!'
+    'n'
 );
 
+sendMessage("Welcome to Kitsune Auto Installer " . $version . ".");
+sendMessage("Script Designed by AmusingThrone\n");
+
+sendMessage("Configuration Setup:");
 
 echo "Enter Database Host: ";
 $dbhost = trim(fgets(STDIN));
+echo "\n";
 echo "Enter Database Username: ";
 $dbUser = trim(fgets(STDIN));
+echo "\n";
 echo "Enter Database Password: ";
 $dbPass = trim(fgets(STDIN));
+echo "\n";
 
 if ($dbPass == "") {
-    echo "Without db pass? Omg, please setup a password for your db.\n";
+    sendMessage("Please set a secure password for your Database");
 }
 
 if (strlen($dbPass) < 5) {
-    echo "Um, please use a strong password.\n";
+    sendMessage("Please use a secure password for your Database");
 }
 
-echo "Enter Database Name: ";
+echo "Enter the Database Name: ";
 $dbName = trim(fgets(STDIN));
+echo "\n";
 $con    = mysqli_connect($dbhost, $dbUser, $dbPass);
 
 if (!$con) {
-    echo "Oops! We couldn't connect to the database..\n";
-    echo "Continue anyway?\n";
+    sendMessage("We could not establish a connection to the Database");
+    echo "Continue Anyways? [y/n]";
     $conan = trim(fgets(STDIN));
+    echo "\n";
 } else {
     $xml                     = new DOMDocument('1.0', 'utf-8');
     $xml->formatOutput       = true;
@@ -112,7 +107,7 @@ if (!$con) {
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
     $xml->save('kitsune/Database.xml');
-    echo "Successfully updated your Database.xml file!\n";
+    sendMessage("Successfully updated your Database.xml file!\n";
 }
 
 if (in_array($conan, $answers)) {
@@ -128,22 +123,24 @@ if (in_array($conan, $answers)) {
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
     $xml->save("kitsune/Database.xml");
-    echo "Successfully updated your Database.xml file!\n";
+    sendMessage("Successfully updated your Database.xml file!\n";
 }
 
 if (in_array($conan, $no)) {
     $conan = trim(fgets(STDIN));
-    die("Shutting down configuration...");
+    sendMessage("Exiting Configuration Program.\n");
 }
 
-echo "Almost done!\n";
-echo "Would you like us to setup the database?\n";
-echo "It's recommended you do, otherwise you will have to do this manually later\n";
-
+sendMessage("Entering Database Setup:");
+sendMessage("Would you like to setup the database?");
+echo "It's recommended you do, otherwise you will have to do this manually later [y,n]";
 $answer = trim(fgets(STDIN));
+echo "\n";
+
 if (in_array($answer, $no)) {
     $conan = trim(fgets(STDIN));
-    echo "Shutting down configuration...\n";
+    sendMessage("Shutting down Database Setup...");
+    sendMessage("Kitsune Setup finished! Enjoy!");
     die("Goodbye!");
 }
 
@@ -168,6 +165,8 @@ mysqli_query($con, "CREATE TABLE IF NOT EXISTS `igloos` (
   `Furniture` text NOT NULL,
   `Locked` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;");
+
+sendMessage("Igloo Database Created!");
 
 mysqli_query($con, "CREATE TABLE IF NOT EXISTS `penguins` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -202,6 +201,8 @@ mysqli_query($con, "CREATE TABLE IF NOT EXISTS `penguins` (
   `MinutesPlayed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;");
 
+sendMessage("Penguins Database Created!");
+
 mysqli_query($con, "CREATE TABLE IF NOT EXISTS `postcards` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Recipient` int(10) unsigned NOT NULL,
@@ -212,6 +213,8 @@ mysqli_query($con, "CREATE TABLE IF NOT EXISTS `postcards` (
   `Type` smallint(5) unsigned NOT NULL,
   `HasRead` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;");
+
+sendMessage("Postcard Database Created!");
 
 mysqli_query($con, "CREATE TABLE IF NOT EXISTS `puffles` (
 `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -233,9 +236,11 @@ mysqli_query($con, "INSERT INTO `puffles` (`ID`, `Owner`, `Name`, `AdoptionDate`
 (7, 101, 'Pink', 1453829330, 1, 100, 100, 100, 0),
 (8, 101, 'Purple', 1454159945, 4, 100, 100, 100, 0);");
 
+sendMessage("Puffles Database Created!");
+
 mysqli_close($con);
 
-echo "The database is now setup!\n";
-echo "Kitsune Setup finished! Enjoy!\n";
+sendMessage("The database is now setup!");
+sendMessage("Kitsune Setup finished! Enjoy!");
 
 ?>
