@@ -55,7 +55,7 @@ sendMessage("Finished extracting\n")
 
 $answers = array(
     'yes',
-    'y',
+    'y'
 );
 $no      = array(
     'no',
