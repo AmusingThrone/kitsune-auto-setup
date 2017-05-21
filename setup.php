@@ -108,7 +108,7 @@ if (!$con) {
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
     $xml->save('kitsune/Database.xml');
-    sendMessage("Successfully updated your Database.xml file!\n";
+    sendMessage("Successfully updated your Database.xml file!\n");
 }
 
 if (in_array($conan, $answers)) {
@@ -124,7 +124,7 @@ if (in_array($conan, $answers)) {
     $xml->getElementsByTagName('password')->item(0)->nodeValue = $dbPass;
     
     $xml->save("kitsune/Database.xml");
-    sendMessage("Successfully updated your Database.xml file!\n";
+    sendMessage("Successfully updated your Database.xml file!\n");
 }
 
 if (in_array($conan, $no)) {
