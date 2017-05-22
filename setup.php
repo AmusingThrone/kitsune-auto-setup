@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(1);
+
 function sendMessage($message) {
 
   $message = $message . "\n";
