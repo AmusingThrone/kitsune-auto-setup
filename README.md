@@ -1,5 +1,5 @@
 # kitsune-auto-setup
-An Automated Setup (one file) for new CPPS owners. Idea from Dev's [script](https://aureus.pw/topic/1172-kitsune-auto-setup-script-as2/). Uses Kitsune AS2 Protocol.
+An Automated Setup (one file) for new CPPS owners. Idea from Dev's [script](https://aureus.pw/topic/1172-kitsune-auto-setup-script-as2/). Uses Kitsune AS2 or AS3 Protocol.
 
 
 ----------

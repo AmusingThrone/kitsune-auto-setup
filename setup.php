@@ -7,10 +7,9 @@ function sendMessage($message) {
 
 }
 
-$version = "v0.2 Alpha";
+$version = "v0.3";
 
 echo "\n";
-
 
 sendMessage("Welcome to Kitsune Auto Installer " . $version);
 sendMessage("Script Designed by AmusingThrone\n");
@@ -19,20 +18,27 @@ sendMessage("Would you like to install Kistune AS2 or AS3?");
 $protocol = trim(fgets(STDIN));
 $protocol = strtolower($protocol);
 
-while ($protocol != "as2" or "as3") {
+$types = array (
+    'as2',
+    'as3'
+);
+
+while (!in_array($protocol, $types)) {
   sendMessage("You can only respond in AS2 or AS3");
   sendMessage("Would you like to install Kistune AS2 or AS3?");
   $protocol = trim(fgets(STDIN));
   $protocol = strtolower($protocol);
 }
 
+sendMessage(strtoupper($protocol) . " protocol chosen.");
+
 $url = "";
 
-if ($protocol = "as2") {
+if ($protocol = $types[1]) {
 
 $url         = "https://github.com/AmusingThrone/kitsune-auto-setup/raw/master/Kitsune.zip";
 
-} elseif ($protocol = "as3") {
+} elseif ($protocol = $types[2]) {
 
 $url         = "https://github.com/widd/kitsune/archive/master.zip";
 
@@ -145,7 +151,6 @@ if (mysqli_connect_errno()) {
 }
 
 if (in_array($conan, $answers)) {
-    $conan                   = trim(fgets(STDIN));
     $xml                     = new DOMDocument('1.0', 'utf-8');
     $xml->formatOutput       = true;
     $xml->preserveWhiteSpace = false;
@@ -159,9 +164,8 @@ if (in_array($conan, $answers)) {
     $xml->save("kitsune/Database.xml");
     sendMessage("Successfully updated your Database.xml file!\n");
 } elseif (in_array($conan, $no)) {
-    $conan = trim(fgets(STDIN));
     sendMessage("Shutting down Configuration Setup...");
-    die("Kitsune Setup finished! Enjoy!\n");
+    die("Kitsune " . strtoupper($protocol) . " Setup Finished! Enjoy!");
 }
 
 sendMessage("--------Database Setup--------");
@@ -171,9 +175,8 @@ $answer = trim(fgets(STDIN));
 echo "\n";
 
 if (in_array($answer, $no)) {
-    $conan = trim(fgets(STDIN));
     sendMessage("Shutting down Database Setup...");
-    die("Kitsune Setup finished! Enjoy!\n");
+    die("Kitsune " . strtoupper($protocol) . " Setup Finished! Enjoy!");
 }
 
 $database = file_get_contents('kitsune/Kitsune.sql');
