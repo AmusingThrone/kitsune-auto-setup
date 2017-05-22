@@ -9,7 +9,11 @@ function sendMessage($message) {
 
 $version = "v0.2";
 
-sendMessage("Welcome to the Kitsune Auto-Setup");
+echo "\n";
+
+
+sendMessage("Welcome to Kitsune Auto Installer " . $version . ".");
+sendMessage("Script Designed by AmusingThrone\n");
 
 $url         = "https://github.com/AmusingThrone/kitsune-auto-setup/raw/master/Kitsune.zip";
 $zipFile     = "Kitsune.zip"; // zip file
@@ -18,7 +22,7 @@ $ch          = curl_init();
 $zip         = new ZipArchive;
 $extractPath = "kitsune";
 
-sendMessage("Downloading " . $zipFile . "from Server...");
+sendMessage("Downloading " . $zipFile . " from Server...");
 
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_FAILONERROR, true);
@@ -63,10 +67,7 @@ $no      = array (
     'n'
 );
 
-sendMessage("Welcome to Kitsune Auto Installer " . $version . ".");
-sendMessage("Script Designed by AmusingThrone\n");
-
-sendMessage("Configuration Setup:");
+sendMessage("--------Configuration Setup--------");
 
 echo "Enter Database Host: ";
 $dbhost = trim(fgets(STDIN));
@@ -89,7 +90,9 @@ if (strlen($dbPass) < 5) {
 echo "Enter the Database Name: ";
 $dbName = trim(fgets(STDIN));
 echo "\n";
-$con    = mysqli_connect($dbhost, $dbUser, $dbPass);
+$con    = mysqli_connect($dbhost, $dbUser, $dbPass, $dbName);
+$conan = "y";
+
 
 if (!$con) {
     sendMessage("We could not establish a connection to the Database");
@@ -125,14 +128,14 @@ if (in_array($conan, $answers)) {
     
     $xml->save("kitsune/Database.xml");
     sendMessage("Successfully updated your Database.xml file!\n");
-}
-
-if (in_array($conan, $no)) {
+} else {
     $conan = trim(fgets(STDIN));
-    sendMessage("Exiting Configuration Program.\n");
+    sendMessage("Shutting down Configuration Setup...");
+    sendMessage("Kitsune Setup finished! Enjoy!");
+    die("Goodbye!");
 }
 
-sendMessage("Entering Database Setup:");
+sendMessage("--------Database Setup--------");
 sendMessage("Would you like to setup the database?");
 echo "It's recommended you do, otherwise you will have to do this manually later [y,n]";
 $answer = trim(fgets(STDIN));
@@ -242,6 +245,6 @@ sendMessage("Puffles Database Created!");
 mysqli_close($con);
 
 sendMessage("The database is now setup!");
-sendMessage("Kitsune Setup finished! Enjoy!");
+sendMessage("Kitsune Setup Finished! Enjoy!");
 
 ?>
