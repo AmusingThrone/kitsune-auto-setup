@@ -7,15 +7,37 @@ function sendMessage($message) {
 
 }
 
-$version = "v0.2";
+$version = "v0.2 Alpha";
 
 echo "\n";
 
 
-sendMessage("Welcome to Kitsune AS2 Auto Installer " . $version);
+sendMessage("Welcome to Kitsune Auto Installer " . $version);
 sendMessage("Script Designed by AmusingThrone\n");
 
+sendMessage("Would you like to install Kistune AS2 or AS3?");
+$protocol = trim(fgets(STDIN));
+$protocol = strtolower($protocol);
+
+while ($protocol != "as2" or "as3") {
+  sendMessage("You can only respond in AS2 or AS3");
+  sendMessage("Would you like to install Kistune AS2 or AS3?");
+  $protocol = trim(fgets(STDIN));
+  $protocol = strtolower($protocol);
+}
+
+$url = "";
+
+if ($protocol = "as2") {
+
 $url         = "https://github.com/AmusingThrone/kitsune-auto-setup/raw/master/Kitsune.zip";
+
+} elseif ($protocol = "as3") {
+
+$url         = "https://github.com/widd/kitsune/archive/master.zip";
+
+}
+
 $zipFile     = "Kitsune.zip";
 $zipResource = fopen($zipFile, "w");
 $ch          = curl_init();
@@ -161,6 +183,6 @@ mysqli_multi_query($con, $database);
 mysqli_close($con);
 
 sendMessage("The database is now setup!");
-sendMessage("Kitsune Setup Finished! Enjoy!");
+sendMessage("Kitsune " . strtoupper($protocol) . " Setup Finished! Enjoy!");
 
 ?>
