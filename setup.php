@@ -12,11 +12,11 @@ $version = "v0.2";
 echo "\n";
 
 
-sendMessage("Welcome to Kitsune Auto Installer " . $version);
+sendMessage("Welcome to Kitsune AS2 Auto Installer " . $version);
 sendMessage("Script Designed by AmusingThrone\n");
 
 $url         = "https://github.com/AmusingThrone/kitsune-auto-setup/raw/master/Kitsune.zip";
-$zipFile     = "Kitsune.zip"; // zip file
+$zipFile     = "Kitsune.zip";
 $zipResource = fopen($zipFile, "w");
 $ch          = curl_init();
 $zip         = new ZipArchive;
