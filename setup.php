@@ -136,10 +136,10 @@ if (in_array($conan, $answers)) {
     
     $xml->save("kitsune/Database.xml");
     sendMessage("Successfully updated your Database.xml file!\n");
-} else {
+} elseif (in_array($conan, $no)) {
     $conan = trim(fgets(STDIN));
     sendMessage("Shutting down Configuration Setup...");
-    die("Kitsune Setup finished! Enjoy!");
+    die("Kitsune Setup finished! Enjoy!\n");
 }
 
 sendMessage("--------Database Setup--------");
@@ -151,7 +151,7 @@ echo "\n";
 if (in_array($answer, $no)) {
     $conan = trim(fgets(STDIN));
     sendMessage("Shutting down Database Setup...");
-    die("Kitsune Setup finished! Enjoy!");
+    die("Kitsune Setup finished! Enjoy!\n");
 }
 
 $database = file_get_contents('kitsune/Kitsune.sql');
