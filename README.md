@@ -7,7 +7,7 @@ Follow the steps on [this tutorial](https://www.digitalocean.com/community/tutor
 
     sudo apt-get install php5-curl
     
-Next, download `setup.php`, and move it somewhere that is not in `/var/www/html/`, and run
+Next, download [setup.php](https://github.com/AmusingThrone/kitsune-auto-setup/releases/download/v0.3-Stable/setup.php), and move it somewhere that is not in `/var/www/html/`, and run
 
     php setup.php
   
