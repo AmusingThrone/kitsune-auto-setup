@@ -42,7 +42,7 @@ $url         = "https://github.com/AmusingThrone/kitsune-auto-setup/raw/master/K
 
 } elseif ($protocol = $types[2]) {
 
-$url         = "https://github.com/widd/kitsune/archive/master.zip";
+$url         = "https://github.com/Kits-une/Kitsune/archive/master.zip";
 
 }
 
