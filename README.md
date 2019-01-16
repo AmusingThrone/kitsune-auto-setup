@@ -1,5 +1,6 @@
 # kitsune-auto-setup
-** IMPORTANT: ** *THIS SCRIPT IS OUTDATED AND MADE OVER 3 YEARS AGO. DO NOT USE THIS, AND DON'T USE KITSUNE. INSTEAD, SETUP A MODERN SERVER SUCH AS [HOUDINI](https://github.com/Solero/Houdini) **
+
+**IMPORTANT:** *THIS SCRIPT IS OUTDATED AND MADE OVER 3 YEARS AGO. DO NOT USE THIS, AND DON'T USE KITSUNE. INSTEAD, SETUP A MODERN SERVER SUCH AS [HOUDINI](https://github.com/Solero/Houdini)*
 
 An Automated Setup (one file) for new CPPS owners. Idea from Dev's [script](https://aureus.pw/topic/1172-kitsune-auto-setup-script-as2/). Uses Kitsune AS2 or AS3 Protocol.
 
